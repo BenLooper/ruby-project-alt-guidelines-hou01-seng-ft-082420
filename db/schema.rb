@@ -10,21 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_05_171401) do
+ActiveRecord::Schema.define(version: 2020_09_10_163935) do
 
-  create_table "buyers", force: :cascade do |t|
+  create_table "groups", force: :cascade do |t|
     t.string "name"
   end
 
-  create_table "carts", force: :cascade do |t|
-    t.integer "buyers_id"
-    t.integer "sellers_id"
-    t.index ["buyers_id"], name: "index_carts_on_buyers_id"
-    t.index ["sellers_id"], name: "index_carts_on_sellers_id"
+  create_table "items", force: :cascade do |t|
+    t.string "name"
+    t.integer "regularPrice"
+    t.string "shortDescription"
+    t.string "url"
+    t.integer "seller_id"
+    t.integer "group_id"
+    t.index ["group_id"], name: "index_items_on_group_id"
+    t.index ["seller_id"], name: "index_items_on_seller_id"
   end
 
   create_table "sellers", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "wishlists", force: :cascade do |t|
+    t.string "name"
+    t.integer "user_id"
+    t.integer "item_id"
+    t.index ["item_id"], name: "index_wishlists_on_item_id"
+    t.index ["user_id"], name: "index_wishlists_on_user_id"
   end
 
 end
